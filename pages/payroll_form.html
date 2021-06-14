@@ -6,6 +6,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../css/new_payroll_form.css">    
     <title>Employee payroll form</title>
+    <script defer src="../js/EmployeePayroll.js"></script>
     <script defer src="../js/new_payroll_form.js"></script>
 </head>
 <body>
@@ -20,14 +21,15 @@
         </div>
     </header> 
 
-    <div class="form-content">
-    <form class="form" action="#"  onsubmit="save(event);return false"> 
-    <!-- UC-2 -->
+    <div id="formID" class="form-content">
+    <form class="form" action="#" onreset="resetForm()" onsubmit="save()"> 
+      <!-- UC-2 -->
     <div class="form-head"> Employee Payroll form</div>   
     <div class="row-content">
         <label class="label text" for="name">Name</label>
         <input class="input" type="text" id="name" name="name" placeholder="Your name.." required>
-    </div>
+        <error-output class="text-error" for="text"></error-output>
+      </div>
 
     <!-- UC3 -->
     <div class="row-content">

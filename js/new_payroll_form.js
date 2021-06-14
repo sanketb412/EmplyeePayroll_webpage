@@ -1,69 +1,83 @@
-class new_payroll_form {
-    // // property
-        // id;
-        // salary;
-    // // As getter and setter is introduce then no need of propertise.
-    
-    
-        //constructor
-        constructor(...params){
-            this.id = params[0];
-            this.name = params[1];
-            this.salary = params[2];
-            this.gender = params[3];
-            this.startDate = params[4];
+window.addEventListener('DOMContentLoaded', (event) => {
+    const name=document.querySelector('#name');
+    const textError = document.querySelector('.text-error');
+    name.addEventListener('input', function() {
+        if(name.value.length == 0) {
+            textError.textContent="";
+            return;
         }
-    
-        //getter and setter for name
-        get name() {
-            return this._name;
-        }
-    
-        set name(name) {
-            // console.log("Setting: " +name);
-            let nameRegex = RegExp('^[A-Z]{1}[a-z]{3,}$');
-            if (nameRegex.test(name))
-                this._name = name;
-            else throw 'Name is Incorrect!';    
-        }
-    
-        //getter and setter for id
-        get id() {
-            return this._id;
-        }
-    
-        set id(id) {
-            // console.log("Setting: " +id);
-            this._id = id;
-        }
-    
-        //getter and setter for salary
-        get salary() {
-            return this._salary;
-        }
-    
-        set salary(salary) {
-            // console.log("Setting: " +salary);
-            this._salary = salary;
-        }
-    
-        //getter and setter for gender
-        get gender() {
-            return this._gender;
-        }
-    
-        set gender(gender) {
-            // console.log("Setting: " +salary);
-            this._gender = gender;
-        }
-    
-        //Method
-        toString() {
-            const options = { year: 'numeric', month: 'long', day: 'numeric'};
-            const empDate = this.startDate === undefined ? "undefined" :
-                            this.startDate.toLocaleDateString("en-US", options);
-            return "id=" + this.id + ", name=" + this.name + ", salary=" + this.salary + ", " + "gender=" + this.gender + ", StartDate=" + empDate;
-        }
+        try {
+            (new EmployeePayrollData()).name = name.value;
+            textError.textContent="";
+        }catch (e) {
+            textError.textContent=e;
+        } 
+    });   
 
-        
+    const salary = document.querySelector('#salary');
+    const output = document.querySelector('.salary-output');
+    output.textContent = salary.value;
+    salary.addEventListener('input', function() {
+    output.textContent = salary.value; 
+    }); 
+});
+
+const save = () => {
+    try{
+        let employeePayrollData = createEmployeePayroll();
+    }catch(e){
+        return;
+    }
+}
+
+const createEmployeePayroll = () => {
+    let employeePayrollData = new EmployeePayrollData();
+    try {
+        employeePayrollData.name=getInputValueById('#name');
+    } catch(e) {
+        setTextValue('.text-error', e);
+        throw e;
+    }
+    employeePayrollData.profilePic = getSelectedValues('[name=profile]').pop();
+    employeePayrollData.gender = getSelectedValues('[name=gender]').pop();
+    employeePayrollData.department = getSelectedValues('[name=department]');
+    employeePayrollData.salary = getInputValueById('#salary');
+    employeePayrollData.note = getInputValueById('#notes');
+    let date = getInputValueById('#day') +" "+getInputValueById('#month')+" "+getInputValueById('#year');
+    employeePayrollData.date = Date.parse(date);
+    alert(employeePayrollData.toString());
+    return employeePayrollData;
+}
+
+const  getSelectedValues = (propertyValue) => {
+    let allItems = document.querySelectorAll(propertyValue);
+    let selItems= [];
+    allItems.forEach(item => {
+        if(item.checked) selItems.push(item.value);
+    });
+    return selItems;
+}
+
+/**
+ * 1: querrySelector is the newer feature.
+ * 2: The querySelector method can be used when selecting by element name,
+ *    nesting, or class name.
+ * 3: quereySelector lets you find elements with rules that cant be
+ *    expressed with getElementByID.
+ */
+const getInputValueById = (id) => {
+    let value = document.querySelector(id).value;
+    return value;
+}
+
+/**
+ * 1: getElemtByID is better supported than quereySelector in older versions
+ *    of the Browser
+ * 2: The thing with getElementByID is that, it only allows to select an
+ *    element by its ID
+ */
+
+const getInputElementValue = (id) => {
+    let value = document.getElementById(id).value;
+    return value;
 }
