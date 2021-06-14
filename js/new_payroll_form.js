@@ -64,4 +64,6 @@ class new_payroll_form {
                             this.startDate.toLocaleDateString("en-US", options);
             return "id=" + this.id + ", name=" + this.name + ", salary=" + this.salary + ", " + "gender=" + this.gender + ", StartDate=" + empDate;
         }
-    }
+
+        
+}
