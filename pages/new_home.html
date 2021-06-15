@@ -12,7 +12,7 @@
     href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600
     &display=swap" rel="stylesheet">
     <title>Employee Payroll App</title>
-    <script defer src="../js/new_home.js"></script>
+    
 </head>
   <body>
     <!-- UC-1 -->
@@ -35,9 +35,9 @@
             <img src="../assest/icons/add-24px.svg" alt="">Add User</a>
         </div>
         <div class="table-main">
-          <table id="display" class="table">
+          <table id="table-display" class="table">  <!-- display changes to table-display as mention in a new_home.js file quereySelector -->
             <!-- UC-3 -->
-            <tr>
+            <!-- <tr>                   {Shifted to new_home.js file // And it get read by Script at line}
               <th></th>
               <th>Name</th>
               <th>Gender</th>
@@ -61,9 +61,10 @@
                 <img id="1" alt="edit" onclick="update(this)"
                       src="../assest/icons/create-black-18dp.svg">
               </td>    
-            </tr>
+            </tr> -->
           </table>
         </div>
     </div>  <!-- (main-content area) -->
+    <script defer src="../js/new_home.js"></script>
   </body>
 </html>
