@@ -12,9 +12,10 @@ const getEmployeePayrollDataFromStorage = () => {
 }
 
 const createInnerHtml = () => {
+    if (empPayrollList.length == 0) return;
     const headerHtml = "<th></th><th>Name</th><th>Gender</th><th>Department</th>"+
                         "<th>Salary</th><th>Start Date</th><th>Actions</th>";
-    if (empPayrollList.length == 0) return;
+    
     let innerHtml = `${headerHtml}`;
     for(const empPayrollData of empPayrollList) {
         innerHtml = `${innerHtml}
@@ -25,11 +26,11 @@ const createInnerHtml = () => {
             <td>${empPayrollData._gender}</td>
             <td>${getDeptHtml(empPayrollData._department)}</td>
             <td>${empPayrollData._salary}</td>
-            <td>${empPayrollData._startDate}</td>
+            <td>${StringifyDate(empPayrollData._startDate)}</td>
             <td>
-                <img name="${empPayrollData._id}" onclick="remove(this)" 
+                <img id="${empPayrollData._id}" onclick="remove(this)" 
                     src="../assest/icons/delete-black-18dp.svg" alt="delete">
-                <img name="${empPayrollData._id}"  onclick="update(this)"
+                <img id="${empPayrollData._id}"  onclick="update(this)"
                     src="../assest/icons/create-black-18dp.svg" alt="edit">
             </td>    
         </tr>
@@ -38,37 +39,6 @@ const createInnerHtml = () => {
     document.querySelector('#table-display').innerHTML = innerHtml;
 }
 
-const creteEmployeePayrollJSON = () => {
-    let empPayrollListLocal = [
-        {
-            _name: 'Sanket Bagde',
-            _gender: 'male',
-            _department: [
-                'Engineering',
-                'Finance'
-            ],
-            _salary: '5000000',
-            _startDate: '29 Oct 2020',
-            _note: '',
-            _id: new Date().getTime(),
-            _profilePic: '../assest/profile-images/Ellipse -2.png'
-        },
-        {
-            _name: 'Vicky Bagde',
-            _gender: 'male',
-            _department: [
-                'HR',
-                'Finance'
-            ],
-            _salary: '3000000',
-            _startDate: '4 Nov 2020',
-            _note: '',
-            _id: new Date().getTime(),
-            _profilePic: '../assest/profile-images/Ellipse -5.png'
-        }
-    ];
-    return empPayrollListLocal;
-}
 
 const getDeptHtml = (deptList) => {
     let deptHtml = '';
@@ -76,4 +46,16 @@ const getDeptHtml = (deptList) => {
         deptHtml = `${deptHtml} <div class='dept-label'>${dept}</div>`
     }
     return deptHtml;
+}
+
+const remove = (node) => {
+    let empPayrollData = empPayrollList.find(empData => empData._id == node.id);
+    if (!empPayrollData) return;
+    const index = empPayrollList
+                  .map(empData => empData._id)
+                  .indexOf(empPayrollData._id);
+    empPayrollList.splice(index, 1);
+    localStorage.setItem("EmployeePayrollList", JSON.stringify(empPayrollList));
+    document.querySelector(".emp-count").textContent = empPayrollList.length;
+    createInnerHtml();
 }
