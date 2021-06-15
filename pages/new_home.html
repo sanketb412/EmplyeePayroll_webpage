@@ -34,6 +34,36 @@
           <a href="../pages/new_payroll_form_js.html" class="add-button">
             <img src="../assest/icons/add-24px.svg" alt="">Add User</a>
         </div>
+        <div class="table-main">
+          <table id="display" class="table">
+            <!-- UC-3 -->
+            <tr>
+              <th></th>
+              <th>Name</th>
+              <th>Gender</th>
+              <th>Department</th>
+              <th>Salary</th>
+              <th>Start Date</th>
+              <th>Actions</th>
+            </tr>
+            <tr>
+              <td><img class="profile" alt=""
+                    src="../assest/profile-images/Ellipse -2.png">
+              </td>
+              <td>Sanket Namdeo Bagde</td>
+              <td>Male</td>
+              <td><div class='dept-label'>HR</div> <div class='dept-label'>Finance</div></td>
+              <td>3000000</td>
+              <td>1 Nov 2020</td>
+              <td>
+                <img id="1" onclick="remove(this)" alt="delete"
+                      src="../assest/icons/delete-black-18dp.svg">
+                <img id="1" alt="edit" onclick="update(this)"
+                      src="../assest/icons/create-black-18dp.svg">
+              </td>    
+            </tr>
+          </table>
+        </div>
     </div>  <!-- (main-content area) -->
   </body>
 </html>
