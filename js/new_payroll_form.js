@@ -1,6 +1,3 @@
-let isUpdate = false;
-let employeePayrollObj = {};
-
 window.addEventListener('DOMContentLoaded', (event) => {
     const name=document.querySelector('#name');
     const textError = document.querySelector('.text-error');
@@ -10,19 +7,12 @@ window.addEventListener('DOMContentLoaded', (event) => {
             return;
         }
         try {
-            (new EmployeePayrollData()).name = name.value;
+            (new EmployeePayrollData())._name = name.value;
             textError.textContent="";
         }catch (e) {
             textError.textContent=e;
-        } 
-    });   
-
-    const salary = document.querySelector('#salary');
-    const output = document.querySelector('.salary-output');
-    output.textContent = salary.value;
-    salary.addEventListener('input', function() {
-    output.textContent = salary.value; 
-    }); 
+        }
+    });
 
     const date = document.querySelector('#date');
     const dateError = document.querySelector('.date-error');
@@ -38,57 +28,42 @@ window.addEventListener('DOMContentLoaded', (event) => {
         }
     });
 
-    checkForUpdate();
+   
+    const salary = document.querySelector('#salary');
+    const output = document.querySelector('.salary-output');
+    output.textContent = salary.value;
+    salary.addEventListener('input', function() {
+    output.textContent = salary.value; 
+    }); 
 });
 
-const save = (event) => {
-    event.preventDefault();
-    event.stopPropogation();
-    try {
-        setEmployeePayrollObject();
-        createAndUpdateStorage();
-        resetForm();
-        window.location.replace(site_properties.home_page);
-    } catch (e) {
+const save = () => {
+    try{
+        let employeePayrollData = createEmployeePayroll();
+        createAndUpdateStorage(employeePayrollData);
+    }catch(e){
         return;
     }
-    // try{
-    //     let employeePayrollData = createEmployeePayroll();
-    //     createAndUpdateStorage(employeePayrollData);
-    // }catch(e){
-    //     return;
-    // }
 }
 
 const createEmployeePayroll = () => {
     let employeePayrollData = new EmployeePayrollData();
-    try {
+    employeePayrollData._id = new Date().getTime();
+    try{
         employeePayrollData.name=getInputValueById('#name');
-    } catch(e) {
-        setTextValue('.text-error', e);
+    }catch(e){
+        setTextValue('.text-error',e);
         throw e;
     }
-//     employeePayrollData.profilePic = getSelectedValues('[name=profile]').pop();
-//     employeePayrollData.gender = getSelectedValues('[name=gender]').pop();
-//     employeePayrollData.department = getSelectedValues('[name=department]');
-//     employeePayrollData.salary = getInputValueById('#salary');
-//     employeePayrollData.note = getInputValueById('#notes');
-//     let date = getInputValueById('#day') +" "+getInputValueById('#month')+" "+getInputValueById('#year');
-//     employeePayrollData.date = Date.parse(date);
-//     alert(employeePayrollData.toString());
-//     return employeePayrollData;
-
-}
-
-const setEmployeePayrollObject = () => {
-    employeePayrollObj.name = getInputValueById('#name');
-    employeePayrollObj._profilePic = getSelectedValues('[name=profile]').pop();
-    employeePayrollObj._gender = getSelectedValues('[name=gender]').pop();
-    employeePayrollObj._department = getSelectedValues('[name=department]');
-    employeePayrollObj._salary = getInputValueById('#salary');
-    employeePayrollObj._note = getInputValueById('#notes');
+    employeePayrollData._profilePic = getSelectedValues('[name=profile]').pop();
+    employeePayrollData._gender = getSelectedValues('[name=gender]').pop();
+    employeePayrollData._department = getSelectedValues('[name=department]');
+    employeePayrollData._salary = getInputValueById('#salary');
+    employeePayrollData._note = getInputValueById('#notes');
     let date = getInputValueById('#day') +" "+getInputValueById('#month')+" "+getInputValueById('#year');
-    employeePayrollObj._date = date;
+    employeePayrollData._startDate = Date.parse(date);
+    alert(employeePayrollData.toString());
+    return employeePayrollData;
 }
 
 const  getSelectedValues = (propertyValue) => {
@@ -100,24 +75,10 @@ const  getSelectedValues = (propertyValue) => {
     return selItems;
 }
 
-/**
- * 1: querrySelector is the newer feature.
- * 2: The querySelector method can be used when selecting by element name,
- *    nesting, or class name.
- * 3: quereySelector lets you find elements with rules that cant be
- *    expressed with getElementByID.
- */
 const getInputValueById = (id) => {
     let value = document.querySelector(id).value;
     return value;
 }
-
-/**
- * 1: getElemtByID is better supported than quereySelector in older versions
- *    of the Browser
- * 2: The thing with getElementByID is that, it only allows to select an
- *    element by its ID
- */
 
 const getInputElementValue = (id) => {
     let value = document.getElementById(id).value;
@@ -168,39 +129,4 @@ const setTextValue = (id, value) => {
 const setValue = (id, value ) => {
     const element = document.querySelector(id);
     element.value = value;
-}
-
-const checkForUpdate = () => {
-    const employeePayrollJson = localStorage.getItem('editEmp');
-    isUpdate = employeePayrollJson ? true : false;
-    if(!isUpdate) return;
-    employeePayrollObj = JSON.parsel(employeePayrollJson);
-    setForm();
-}
-
-const setform = () => {
-    setValue('#name', employeePayrollObj._name);
-    setSelectedValues('[name=profile]',employeePayrollObj._profilePic);
-    setSelectedValues('[name=gender]',employeePayrollObj._gender);
-    setSelectedValues('[name=department]',employeePayrollObj._department);
-    setValues('#salary',employeePayrollObj._salary);
-    setTextValue('.salary-output', employeePayrollObj._salary);
-    setValue('#notes', employeePayrollObj._note);
-    let date = stringifyDate(employeePayrollObj._startDate).split(" ");
-    setValue('#day', date[0]);
-    setValue('#month', date[1]);
-    setValue('#year', date[2]);
-}
-
-const setSelectedValues = (propertyValue, value) => {
-    let allItems = document.quereySelectorAll(propertyValue);
-    allItems.forEach(item => {
-        if(Array.isArray(value)) {
-            if (value.includes(item.value)) {
-                item.checked = true;
-            }
-        }
-        else if (item.value == value)
-            item.checked = true;
-    });
 }
