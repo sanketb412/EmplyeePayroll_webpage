@@ -1,4 +1,4 @@
-let empPayrollList ;
+
 window.addEventListener("DOMContentLoaded", (event) => {
     empPayrollList = getEmployeePayrollDataFromLocalStorage();
     document.querySelector(".emp-count").textContent = empPayrollList.length;
@@ -7,13 +7,12 @@ window.addEventListener("DOMContentLoaded", (event) => {
 });
 
 const getEmployeePayrollDataFromLocalStorage = () => {
-    return localStorage.getItem("EmployeePayrollList") ?
-        JSON.parse(localStorage.getItem("EmployeePayrollList")) : [];
-};
+    return localStorage.getItem("EmployeePayrollList") ? JSON.parse(localStorage.getItem("EmployeePayrollList")) : [];
+}
 
 const createInnerHtml = () => {
-    const headerHtml =
-        "<th></th><th>Name</th><th>Gender</th><th>Department</th><th>Salary</th><th>Start Date</th><th>Actions</th>";
+    const headerHtml = "<th></th><th>Name</th><th>Gender</th><th>Department</th>"+
+                        "<th>Salary</th><th>Start Date</th><th>Actions</th>";
         if(empPayrollList.length == 0) return;
         let innerHtml = `${headerHtml}`;
         for(const empPayrollData of empPayrollList){
@@ -44,6 +43,7 @@ const createInnerHtml = () => {
     }
 
     const remove = (node) => {
+        console.log(node);
         let empPayrollData = empPayrollList.find(empData => empData._id == node._id)
         if(!empPayrollData) return;
         const index = empPayrollList.map(empData => empData._id)
@@ -55,8 +55,9 @@ const createInnerHtml = () => {
    }
 
    const update = (node) => {
-    let empPayrollData = empPayrollList.find(empData => empData._id == node.id)
-    if (!empPayrollData) return;
-    localStorage.setItem('editEmp', JSON.stringify(empPayrollData))
-    window.location.replace(site_properties.add_emp_payroll_page);
-}
+    console.log(node);
+        let empPayrollData = empPayrollList.find(empData => empData._id == node._id)
+        if (!empPayrollData) return;
+        localStorage.setItem('editEmp', JSON.stringify(empPayrollData))
+        window.location.replace(site_properties.add_emp_payroll_page);
+    }
