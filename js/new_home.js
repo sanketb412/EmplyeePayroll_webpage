@@ -1,4 +1,4 @@
-
+let empPayrollList;
 window.addEventListener("DOMContentLoaded", (event) => {
     empPayrollList = getEmployeePayrollDataFromLocalStorage();
     document.querySelector(".emp-count").textContent = empPayrollList.length;
