@@ -6,7 +6,7 @@ const stringifyDate = (date) => {
 }
 
 const update = (node) => {
-    let empPayrollData = empPayrollList.find(empData => empData.id == node._id)
+    let empPayrollData = empPayrollList.find(empData => empData._id == node.id)
     if (!empPayrollData) 
     return;
     localStorage.setItem('editEmp', JSON.stringify(empPayrollData))

@@ -77,8 +77,8 @@ const save = () => {
 const setEmployeePayrollObject =() => {
     employeePayrollObj._name = getInputValueById('#name');
     employeePayrollObj._profilePic = getSelectedValues('[name=profile]').pop();
-    employeePayrollObj._gender = getSelectedValues('name=gender]').pop();
-    employeePayrollObj._department = getSelectedValues('name=department]').pop();
+    employeePayrollObj._gender = getSelectedValues('[name=gender]').pop();
+    employeePayrollObj._department = getSelectedValues('[name=department]').pop();
     employeePayrollObj._salary = getInputValueById('#salary');
     employeePayrollObj._note = getInputValueById('#notes');
     let date = getInputValueById('#day')+ " " + getInputValueById('#month') +" "+ getInputValueById('#year');
@@ -93,13 +93,13 @@ const createEmployeePayroll = () => {
         setTextValue('.text-error',e);
         throw e;
     }
-    employeePayrollData.profilePic = getSelectedValues("[name=profile]").pop();
-    employeePayrollData.gender = getSelectedValues("[name=gender]").pop();
-    employeePayrollData.department = getSelectedValues("[name=department]");
-    employeePayrollData.salary = getInputValueById("#salary");
-    employeePayrollData.note = getInputValueById("#notes");
+    employeePayrollData._profilePic = getSelectedValues("[name=profile]").pop();
+    employeePayrollData._gender = getSelectedValues("[name=gender]").pop();
+    employeePayrollData._department = getSelectedValues("[name=department]");
+    employeePayrollData._salary = getInputValueById("#salary");
+    employeePayrollData._note = getInputValueById("#notes");
     let date = getInputValueById('#day')+ " " + getInputValueById('#month') +" "+ getInputValueById('#year');
-    employeePayrollData.startDate = Date.parse(date);
+    employeePayrollData._startDate = Date.parse(date);
     alert(employeePayrollData.toString());
     return employeePayrollData;
 }
@@ -113,8 +113,8 @@ const createAndUpdateStorage = () => {
         } else {
             const index = employeePayrollList
                           .map(empData => empData._id)
-                          .indexOf(empPayrollData.id);
-            employeePayrollList.splice(index, 1, createEmployeePayrollData(employeePayrollData.id));
+                          .indexOf(empPayrollData._id);
+            employeePayrollList.splice(index, 1, createEmployeePayrollData(empPayrollData._id));
             } 
     } else {
         employeePayrollList = [createEmployeePayrollData()]
@@ -172,10 +172,10 @@ const getInputValueById = (id) => {
  * 2: The thing with getElementById is that iot only allows to select an element by its id.
  */
 
-const getInputValueById = (id) => {
-    let value = document.getElementById(id).value;
-    return value;
-}
+// const getInputValueById = (id) => {
+//     let value = document.getElementById(id).value;
+//     return value;
+// }
 
 const getSelectedValues = (propertyValue) => {
     let allItems = document.querySelectorAll(propertyValue);
@@ -193,7 +193,7 @@ const setForm = () => {
     setSelectedValues('[name=department]', employeePayrollObj._department);
     setValue('#salary', employeePayrollObj._salary);
     setTextValue('.salary-output', employeePayrollObj._salary);
-    setValue('#notes',employeePayrollObj.note);
+    setValue('#notes',employeePayrollObj._note);
     let date = stringifyDate(employeePayrollObj._startDate).split(" ");
     setValue("#day", date[0]);
     setValue("#month", date[1]);

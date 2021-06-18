@@ -4,11 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../css/new_payroll_form.css">    
+    <link rel="stylesheet" href="../css/new_payroll_form.css"> 
+
     <title>Employee payroll form</title>
-    <script defer src="../js/new_payroll_form.js"></script>
-    <script defer src="../js/EmployeePayroll.js"></script>
-    
+
 </head>
 <body>
     <!--UC1-->
@@ -137,16 +136,16 @@
             <select id="month" name="Month">
                 <option value="Jan">January</option>
                 <option value="Feb">Febuary</option>
-                <option value="March">March</option>
-                <option value="April">April</option>
+                <option value="Mar">March</option>
+                <option value="Apr">April</option>
                 <option value="May">May</option>
-                <option value="June">June</option>
-                <option value="July">July</option>
-                <option value="August">August</option>
-                <option value="September">Sepember</option>
-                <option value="October">October</option>
-                <option value="November">November</option>
-                <option value="December">December</option>
+                <option value="Jun">June</option>
+                <option value="Jul">July</option>
+                <option value="Aug">August</option>
+                <option value="Sep">Sepember</option>
+                <option value="Oct">October</option>
+                <option value="Nov">November</option>
+                <option value="Dec">December</option>
             </select>
             <select id="year" name="Year">
                 <option value="2021">2021</option>
@@ -166,7 +165,7 @@
         <textarea id="notes" class="input" name="notes" placeholder="" style="height:100px"></textarea>
     </div>
     <div class="button-content">
-        <a href="./new_home.html" class="resetButton button cancelButton">Cancel</a>
+        <a href="../pages/new_home.html" class="resetButton button cancelButton">Cancel</a>
         <div class="submit-reset">
         <button type="submit" class="button submitButton " id="submitButton">Submit</button>
         <button type="reset" class="resetButton button">Reset</button>
@@ -175,5 +174,9 @@
 
   </form>
   </div>
+    <script src="../js/site_properties.js"></script> 
+    <script src="../js/utility.js"></script>
+    <script defer src="../js/new_payroll_form.js"></script>
+    <script defer src="../js/EmployeePayroll.js"></script>
 </body>
 </html>
