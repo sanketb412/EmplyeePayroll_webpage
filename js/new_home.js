@@ -19,17 +19,17 @@ const createInnerHtml = () => {
         for(const empPayrollData of empPayrollList){
              innerHtml = `${innerHtml}
              <tr>
-                     <td><img class="profile" alt="" src="${empPayrollData._profilePic}" ></td>
-                     <td>${empPayrollData._name}</td>
-                     <td>${empPayrollData._gender}</td>
-                     <td>${getDeptHtml(empPayrollData._department)}</td>
-                     <td>${empPayrollData._salary}</td>
-                     <td>${stringifyDate(empPayrollData._startDate)}</td>
-                     <td>
-                         <img id="${empPayrollData._id}" onclick="remove(this)" src='../assest/icons/delete-black-18dp.svg'  alt="delete">
-                         <img id="${empPayrollData._id}" onclick="update(this)" src='../assest/icons/create-black-18dp.svg'  alt="edit">
-                     </td>
-                 </tr>
+                    <td><img class="profile" alt="" src="${empPayrollData._profilePic}" ></td>
+                    <td>${empPayrollData._name}</td>
+                    <td>${empPayrollData._gender}</td>
+                    <td>${getDeptHtml(empPayrollData._department)}</td>
+                    <td>${empPayrollData._salary}</td>
+                    <td>${stringifyDate(empPayrollData._startDate)}</td>
+                    <td>
+                        <img id="${empPayrollData._id}" onclick="remove(this)" src='../assest/icons/delete-black-18dp.svg'  alt="delete">
+                        <img id="${empPayrollData._id}" onclick="update(this)" src='../assest/icons/create-black-18dp.svg'  alt="edit">
+                    </td>
+                </tr>
              `;
         }
         document.querySelector("#table-display").innerHTML = innerHtml;
