@@ -11,9 +11,10 @@ const getEmployeePayrollDataFromLocalStorage = () => {
 }
 
 const createInnerHtml = () => {
+    if(empPayrollList.length == 0) return;
     const headerHtml = "<th></th><th>Name</th><th>Gender</th><th>Department</th>"+
                         "<th>Salary</th><th>Start Date</th><th>Actions</th>";
-        if(empPayrollList.length == 0) return;
+        
         let innerHtml = `${headerHtml}`;
         for(const empPayrollData of empPayrollList){
              innerHtml = `${innerHtml}
@@ -25,8 +26,8 @@ const createInnerHtml = () => {
                      <td>${empPayrollData._salary}</td>
                      <td>${stringifyDate(empPayrollData._startDate)}</td>
                      <td>
-                         <img id="${empPayrollData._id}" onclick="remove(this)"  src="../assest/icons/delete-black-18dp.svg" alt="delete">
-                         <img id="${empPayrollData._id}" onclick="update(this)"  src="../assest/icons/create-black-18dp.svg" alt="edit">
+                         <img id="${empPayrollData._id}"  src='../assest/icons/delete-black-18dp.svg' onclick="remove(this)" alt="delete">
+                         <img id="${empPayrollData._id}"  src='../assest/icons/create-black-18dp.svg' onclick="update(this)" alt="edit">
                      </td>
                  </tr>
              `;
